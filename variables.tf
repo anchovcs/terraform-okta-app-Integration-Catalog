@@ -24,3 +24,9 @@ variable "redirect_uris" {
   type    = list(string)
   default = ["https://example.com/callback"]
 }
+
+variable "scopes" {
+  type        = list(string)
+  description = "The list of Okta API scopes to grant to the OIDC application (e.g., okta.users.manage)."
+  default     = ["openid", "profile", "email"] 
+}

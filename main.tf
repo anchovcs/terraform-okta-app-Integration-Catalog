@@ -20,3 +20,13 @@ resource "okta_app_oauth" "oidcapp" {
   redirect_uris  = var.redirect_uris
   response_types = ["code"]
 }
+
+# The Automated "Grant Consent" Resource
+resource "okta_app_oauth_api_scope" "scopes" {
+  # This creates one grant per scope in the list
+  for_each   = var.app_type == "oidc" ? toset(var.scopes) : []
+  
+  app_id     = okta_app_oauth.oidcapp[0].id
+  issuer     = "https://trial-3738467.okta.com"
+  scopes     = [each.value]
+}
