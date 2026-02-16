@@ -28,10 +28,10 @@ variable "redirect_uris" {
 variable "scopes" {
   type        = list(string)
   description = "The list of Okta API scopes to grant to the OIDC application (e.g., okta.users.manage)."
-  default     = ["openid", "profile", "email"] 
+  default     = ["openid", "profile", "email"]
 }
 
 variable "group_ids" {
-  type = list(string)
+  type    = list(string)
   default = []
 }

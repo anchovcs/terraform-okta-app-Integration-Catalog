@@ -19,5 +19,5 @@ output "saml_metadata_url" {
 output "saml_metadata_xml" {
   description = "The raw XML metadata (Sensitive)"
   value       = var.app_type == "saml" ? okta_app_saml.samlapp[0].metadata : null
-  sensitive   = true 
+  sensitive   = true
 }
