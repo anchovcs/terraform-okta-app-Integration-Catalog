@@ -9,7 +9,30 @@ resource "okta_app_saml" "samlapp" {
   
   subject_name_id_template = "$${user.userName}"
   subject_name_id_format   = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  # Standard User Claims (Attribute Statements)
+  attribute_statements {
+    name   = "email"
+    values = ["user.email"]
+  }
+
+#   # Group Membership Claim (The "Group Attribute Statement")
+#   attribute_statements {
+#     type         = "GROUP"
+#     name         = "groups"
+#     filter_type  = "REGEX"
+#     filter_value = ".*" # This sends all groups assigned to the user
+#   }
+# }
 }
+# Assign Groups to the SAML App
+resource "okta_app_group_assignment" "saml_groups" {
+  for_each = var.app_type == "saml" ? toset(var.group_ids) : []
+  
+  app_id   = okta_app_saml.samlapp[0].id
+  group_id = each.value
+}
+
+
 
 # Create OIDC App ONLY if app_type is "oidc"
 resource "okta_app_oauth" "oidcapp" {
