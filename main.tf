@@ -9,6 +9,7 @@ resource "okta_app_saml" "samlapp" {
 
   subject_name_id_template = "$${user.userName}"
   subject_name_id_format   = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  response_signed          = true
   signature_algorithm      = "RSA_SHA256"
   digest_algorithm         = "SHA256"
   authn_context_class_ref  = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
